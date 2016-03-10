@@ -51,5 +51,17 @@ namespace arrd {
     }
     return r;
   }
+
+  template<template<typename> class T, typename A> T<A> filter(bool (*f)(A), T<A> a) {
+    T<A> r;
+    r.len = 0;
+    for (uint16_t i=0; i<a.len; i++) {
+      if (f(a[i]) == true) {
+        r[r.len] = a[i];
+        r.len++;
+      }
+    }
+    return r;
+  }
 }
 

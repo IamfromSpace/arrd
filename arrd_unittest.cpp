@@ -13,6 +13,11 @@ T sum(T a, T b) {
   return a + b;
 }
 
+template<typename T>
+bool isPositive(T a) {
+  return a >= 0;
+}
+
 TEST(arrd, CanAccessAllMembers) {
   arrd4_t<int16_t> a = {{0, 1, 4, 9}, 4};
   EXPECT_EQ(a[0], 0);
@@ -101,4 +106,14 @@ TEST(arrdConcat, ShouldCombineTwoArrds) {
   EXPECT_EQ(c[1], 8);
   EXPECT_EQ(c[2], 9);
   EXPECT_EQ(c.len, 3);
+}
+
+TEST(arrdFilter, ShouldFilter) {
+  arrd8_t<int16_t> a = {{1, -1, 0, -17, -5, 12, 1923}, 7};
+  arrd8_t<int16_t> b = filter(isPositive<int16_t>, a);
+  EXPECT_EQ(b[0],1);
+  EXPECT_EQ(b[1],0);
+  EXPECT_EQ(b[2],12);
+  EXPECT_EQ(b[3],1923);
+  EXPECT_EQ(b.len,4);
 }
