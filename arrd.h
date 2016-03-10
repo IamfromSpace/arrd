@@ -2,6 +2,16 @@
 #include <algorithm>
 
 template<typename T>
+class arrd2_t {
+  public:
+    T arr[2];
+    uint8_t len;
+    T& operator[] (const int i) {
+      return arr[i];
+    }
+};
+
+template<typename T>
 class arrd4_t {
   public:
     T arr[4];
@@ -40,8 +50,20 @@ namespace arrd {
     return b;
   }
 
-  template<template<typename> class A, typename T> A<T> conc(A<T> a, A<T> b) {
+  template<template<typename> class A, typename T> A<T> concat(A<T> a, A<T> b) {
     A<T> r;
+    r.len = a.len + b.len;
+    for (uint16_t i=0; i<a.len; i++) {
+      r[i] = a[i];
+    }
+    for (uint16_t i=0; i<b.len; i++) {
+      r[i + a.len] = b[i];
+    }
+    return r;
+  }
+
+  template<template<typename> class R, template<typename> class A, template<typename> class B, typename T> R<T> concat(A<T> a, B<T> b) {
+    R<T> r;
     r.len = a.len + b.len;
     for (uint16_t i=0; i<a.len; i++) {
       r[i] = a[i];
