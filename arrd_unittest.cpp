@@ -92,3 +92,13 @@ TEST(arrdMap, ShouldMapTwoArrds) {
   EXPECT_EQ(c[2], 4);
   EXPECT_EQ(c.len, 3);
 }
+
+TEST(arrdConcat, ShouldCombineTwoArrds) {
+  arrd4_t<int16_t> a = {{7},1};
+  arrd4_t<int16_t> b = {{8,9},2};
+  arrd4_t<int16_t> c = conc(a,b);
+  EXPECT_EQ(c[0], 7);
+  EXPECT_EQ(c[1], 8);
+  EXPECT_EQ(c[2], 9);
+  EXPECT_EQ(c.len, 3);
+}

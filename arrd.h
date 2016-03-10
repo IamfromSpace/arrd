@@ -39,5 +39,17 @@ namespace arrd {
     }
     return b;
   }
+
+  template<template<typename> class A, typename T> A<T> conc(A<T> a, A<T> b) {
+    A<T> r;
+    r.len = a.len + b.len;
+    for (uint16_t i=0; i<a.len; i++) {
+      r[i] = a[i];
+    }
+    for (uint16_t i=0; i<b.len; i++) {
+      r[i + a.len] = b[i];
+    }
+    return r;
+  }
 }
 
