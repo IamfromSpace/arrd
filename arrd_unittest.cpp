@@ -137,3 +137,21 @@ TEST(arrdReduce, ShouldAcceptAStartingValOfDifferentType) {
   int16_t b = reduce(incIf, (int16_t) 0, a);
   EXPECT_EQ(b, 4);
 }
+
+TEST(arrdReduce, ShouldWorkWithoutAStartingValue) {
+  arrd8_t<int16_t> a = {{0,1,2,3,4,5},6};
+  int16_t b = reduce(sum<int16_t>, a);
+  EXPECT_EQ(b, 15);
+}
+
+TEST(arrdReduce, ShouldReturnTheFirstElementWhenLengthIsOne) {
+  arrd8_t<int16_t> a = {{90},1};
+  int16_t b = reduce(sum<int16_t>, a);
+  EXPECT_EQ(b, 90);
+}
+
+TEST(arrdReduce, ShouldReturnATypeCast0IfEmpty) {
+  arrd8_t<bool> a = {{},0};
+  bool b = reduce(sum<bool>, a);
+  EXPECT_EQ(b, false);
+}
