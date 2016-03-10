@@ -63,5 +63,13 @@ namespace arrd {
     }
     return r;
   }
+
+  template<template<typename> class T, typename A, typename B> B reduce(B (*f)(B, A), B b, T<A> a) {
+    B r = b;
+    for (uint16_t i=0; i<a.len; i++) {
+      r = f(r, a[i]);
+    }
+    return r;
+  }
 }
 

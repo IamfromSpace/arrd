@@ -18,6 +18,14 @@ bool isPositive(T a) {
   return a >= 0;
 }
 
+int16_t incIf(int16_t a, bool b) {
+  if (b) {
+    return a + 1;
+  } else {
+    return a;
+  }
+}
+
 TEST(arrd, CanAccessAllMembers) {
   arrd4_t<int16_t> a = {{0, 1, 4, 9}, 4};
   EXPECT_EQ(a[0], 0);
@@ -116,4 +124,16 @@ TEST(arrdFilter, ShouldFilter) {
   EXPECT_EQ(b[2],12);
   EXPECT_EQ(b[3],1923);
   EXPECT_EQ(b.len,4);
+}
+
+TEST(arrdReduce, ShouldAcceptAStartingValue) {
+  arrd8_t<int16_t> a = {{0,1,2,3,4,5},6};
+  int16_t b = reduce(sum<int16_t>, (int16_t) 10, a);
+  EXPECT_EQ(b, 25);
+}
+
+TEST(arrdReduce, ShouldAcceptAStartingValOfDifferentType) {
+  arrd8_t<bool> a = {{true,false,false,true,true,true},6};
+  int16_t b = reduce(incIf, (int16_t) 0, a);
+  EXPECT_EQ(b, 4);
 }
