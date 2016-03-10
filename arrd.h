@@ -107,5 +107,16 @@ namespace arrd {
     }
     return r;
   }
+
+  template<template<typename> class R, template<typename> class A, typename T> R<T> take(A<T> a, int count) {
+    R<T> r;
+    r.len = count;
+    if (r.len != 0) {
+      for (uint16_t i=0; i<count; i++) {
+        r[i] = a[i];
+      }
+    }
+    return r;
+  }
 }
 

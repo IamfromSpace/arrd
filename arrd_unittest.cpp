@@ -188,3 +188,12 @@ TEST(arrdSlice, ShouldReturnAnEmptyArrayWhenTakingZero) {
   arrd8_t<int16_t> b = take(a, 0);
   EXPECT_EQ(b.len, 0);
 }
+
+TEST(arrdSlice, ShouldBeAbleToReturnADifferentCapacityArray) {
+  arrd8_t<int16_t> a = {{0,1,2,3,4,5},6};
+  arrd4_t<int16_t> b = take<arrd4_t>(a, 3);
+  EXPECT_EQ(b[0],0);
+  EXPECT_EQ(b[1],1);
+  EXPECT_EQ(b[2],2);
+  EXPECT_EQ(b.len, 3);
+}
