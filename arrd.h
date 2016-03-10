@@ -85,5 +85,16 @@ namespace arrd {
     }
     return r;
   }
+
+  template<template<typename> class T, typename A> T<A> reverse(T<A> a) {
+    T<A> r;
+    r.len = a.len;
+    if (r.len != 0) {
+      for (uint16_t i=0; i<r.len; i++) {
+        r[i] = a[a.len - i - 1];
+      }
+    }
+    return r;
+  }
 }
 
