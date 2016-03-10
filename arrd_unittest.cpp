@@ -8,6 +8,11 @@ T square(T a) {
   return a * a;
 }
 
+template<typename T>
+T sum(T a, T b) {
+  return a + b;
+}
+
 TEST(arrd, CanAccessAllMembers) {
   arrd4_t<int16_t> a = {{0, 1, 4, 9}, 4};
   EXPECT_EQ(a[0], 0);
@@ -78,3 +83,12 @@ TEST(arrdMap, ShouldMapMultipleTypes) {
   EXPECT_EQ(b[2], 4);
 }
 
+TEST(arrdMap, ShouldMapTwoArrds) {
+  arrd4_t<int16_t> a = {{0,1,2}, 3};
+  arrd4_t<int16_t> b = {{0,1,2,3}, 4};
+  arrd4_t<int16_t> c = map(sum<int16_t>, a, b);
+  EXPECT_EQ(c[0], 0);
+  EXPECT_EQ(c[1], 2);
+  EXPECT_EQ(c[2], 4);
+  EXPECT_EQ(c.len, 3);
+}
