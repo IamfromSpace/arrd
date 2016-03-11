@@ -32,6 +32,7 @@ TEST(arrd, CanAccessAllMembers) {
   EXPECT_EQ(a[1], 1);
   EXPECT_EQ(a[2], 4);
   EXPECT_EQ(a[3], 9);
+  EXPECT_EQ(a.len, 4);
 }
 
 TEST(arrd, CanChangeInSize) {
@@ -86,6 +87,7 @@ TEST(arrdMap, ShouldMap) {
   EXPECT_EQ(b[0], 0);
   EXPECT_EQ(b[1], 1);
   EXPECT_EQ(b[2], 4);
+  EXPECT_EQ(b.len, 3);
 }
 
 TEST(arrdMap, ShouldMapMultipleTypes) {
@@ -118,12 +120,14 @@ TEST(arrdConcat, ShouldCombineTwoArrds) {
 
 TEST(arrdConcat, ShouldCombineArrdsOfVariousSize) {
   arrd2_t<int16_t> a = {{7},1};
-  arrd4_t<int16_t> b = {{8,9,10,11},2};
+  arrd4_t<int16_t> b = {{8,9,10,11},4};
   arrd8_t<int16_t> c = concat<arrd8_t>(a,b);
   EXPECT_EQ(c[0], 7);
   EXPECT_EQ(c[1], 8);
   EXPECT_EQ(c[2], 9);
-  EXPECT_EQ(c.len, 3);
+  EXPECT_EQ(c[3], 10);
+  EXPECT_EQ(c[4], 11);
+  EXPECT_EQ(c.len, 5);
 }
 
 TEST(arrdFilter, ShouldFilter) {
