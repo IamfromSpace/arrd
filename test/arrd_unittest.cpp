@@ -275,3 +275,37 @@ TEST(takeWhile, ShouldBeAbleToReturnADifferentSizedArrd) {
   EXPECT_EQ(b[3], 0);
   EXPECT_EQ(b.len, 4);
 }
+
+TEST(dropWhile, ShouldDropTheCorrectValues) {
+  arrd8_t<int16_t> a = {{3,2,1,0,-1,-2,3},7};
+  arrd8_t<int16_t> b = dropWhile(isPositive, a);
+  EXPECT_EQ(b[0], -1);
+  EXPECT_EQ(b[1], -2);
+  EXPECT_EQ(b[2], 3);
+  EXPECT_EQ(b.len, 3);
+}
+
+TEST(dropWhile, ShouldReturnAnEmptyArrayIfAllMatch) {
+  arrd8_t<int16_t> a = {{4,3,2,1},4};
+  arrd8_t<int16_t> b = dropWhile(isPositive, a);
+  EXPECT_EQ(b.len, 0);
+}
+
+TEST(dropWhile, ShouldReturnTheSameArrayIfAllValuesDoNotMatch) {
+  arrd8_t<int16_t> a = {{-3,-2,-1,-0},4};
+  arrd8_t<int16_t> b = dropWhile(isPositive, a);
+  EXPECT_EQ(b[0], -3);
+  EXPECT_EQ(b[1], -2);
+  EXPECT_EQ(b[2], -1);
+  EXPECT_EQ(b[3], -0);
+  EXPECT_EQ(b.len, 4);
+}
+
+TEST(dropWhile, ShouldBeAbleToReturnADifferentSizeedArrd) {
+  arrd8_t<int16_t> a = {{3,2,1,0,-1,-2,3},7};
+  arrd4_t<int16_t> b = dropWhile<arrd4_t>(isPositive, a);
+  EXPECT_EQ(b[0], -1);
+  EXPECT_EQ(b[1], -2);
+  EXPECT_EQ(b[2], 3);
+  EXPECT_EQ(b.len, 3);
+}

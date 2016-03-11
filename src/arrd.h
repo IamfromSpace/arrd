@@ -200,5 +200,29 @@ namespace arrd {
     }
     return r;
   }
+
+  template<template<typename> class T, typename A> T<A> dropWhile(bool (*f)(A), T<A> a) {
+    T<A> r;
+    r.len = 0;
+    uint16_t j = 0;
+    while (j < a.len && f(a[j])) { j++; }
+    for (uint16_t i=j; i<a.len; i++) {
+      r[i-j] = a[i];
+    }
+    r.len = a.len - j;
+    return r;
+  }
+
+  template<template<typename> class R, template<typename> class A, typename T> R<T> dropWhile(bool (*f)(T), A<T> a) {
+    R<T> r;
+    r.len = 0;
+    uint16_t j = 0;
+    while (j < a.len && f(a[j])) { j++; }
+    for (uint16_t i=j; i<a.len; i++) {
+      r[i-j] = a[i];
+    }
+    r.len = a.len - j;
+    return r;
+  }
 }
 
