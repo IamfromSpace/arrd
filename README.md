@@ -53,3 +53,6 @@ Simply place the `arrd.h` file into your libraries and add `#include "arrd.h"` t
 Tests are run using [Google Test](https://github.com/google/googletest).  This library needs to be downloaded and built, and then added to your default include/lib locations.  Please check their readme for details.
 
 Once that is complete, you can run `make test` from this root directory to run all tests.
+
+###Running Perf
+This library has some performance tests to guide design decisions.  To run these, you'll need [hayai](https://github.com/nickbruun/hayai).  Currently this assumes you have the source code in a peer folder to arrd.  With that project built (you can do this via cmake, see hayai's README), you can run the performance tests via `make perf`.
