@@ -211,3 +211,31 @@ TEST(arrdTake, ShouldBeAbleToReturnADifferentCapacityArray) {
   EXPECT_EQ(b[2],2);
   EXPECT_EQ(b.len, 3);
 }
+
+TEST(arrdDrop, ShouldReturnASubsetOfTheTargetArray) {
+  arrd8_t<int16_t> a = {{0,1,2,3,4,5},6};
+  arrd8_t<int16_t> b = drop(a, 3);
+  EXPECT_EQ(b[0],3);
+  EXPECT_EQ(b[1],4);
+  EXPECT_EQ(b[2],5);
+  EXPECT_EQ(b.len, 3);
+}
+
+TEST(arrdDrop, ShouldReturnAnIdenticalArrayWhenDroppingZero) {
+  arrd8_t<int16_t> a = {{0,1,2,3},4};
+  arrd8_t<int16_t> b = drop(a, 0);
+  EXPECT_EQ(b[0],0);
+  EXPECT_EQ(b[1],1);
+  EXPECT_EQ(b[2],2);
+  EXPECT_EQ(b[3],3);
+  EXPECT_EQ(b.len, 4);
+}
+
+TEST(arrdDrop, ShouldBeAbleToReturnADifferentCapacityArray) {
+  arrd8_t<int16_t> a = {{0,1,2,3,4,5},6};
+  arrd4_t<int16_t> b = drop<arrd4_t>(a, 3);
+  EXPECT_EQ(b[0],3);
+  EXPECT_EQ(b[1],4);
+  EXPECT_EQ(b[2],5);
+  EXPECT_EQ(b.len, 3);
+}

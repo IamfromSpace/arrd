@@ -150,5 +150,27 @@ namespace arrd {
     }
     return r;
   }
+
+  template<template<typename> class T, typename A> T<A> drop(T<A> a, int count) {
+    T<A> r;
+    r.len = a.len - count;
+    if (r.len != 0) {
+      for (uint16_t i=0; i<r.len; i++) {
+        r[i] = a[i + count];
+      }
+    }
+    return r;
+  }
+
+  template<template<typename> class R, template<typename> class A, typename T> R<T> drop(A<T> a, int count) {
+    R<T> r;
+    r.len = a.len - count;
+    if (r.len != 0) {
+      for (uint16_t i=0; i<r.len; i++) {
+        r[i] = a[i + count];
+      }
+    }
+    return r;
+  }
 }
 
