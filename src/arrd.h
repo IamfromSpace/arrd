@@ -31,6 +31,16 @@ class arrd8_t {
     }
 };
 
+template<typename T>
+class arrd32_t {
+  public:
+    T arr[32];
+    uint8_t len;
+    T& operator[] (const int i) {
+      return arr[i];
+    }
+};
+
 namespace arrd {
   template<template<typename> class T, typename A, typename B, typename C> T<C> map(C (*f)(A,B), T<A> a, T<B> b) {
     T<C> r;
