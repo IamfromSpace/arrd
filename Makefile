@@ -1,2 +1,3 @@
+.PHONY: test
 test:
-	g++ -pthread *.h *.cpp -lgtest -o test.o && ./test.o
+	g++ -pthread src/*.h test/*.cpp -Isrc/ -lgtest -o test.o && ./test.o
