@@ -172,5 +172,33 @@ namespace arrd {
     }
     return r;
   }
+
+  template<template<typename> class T, typename A> T<A> takeWhile(bool (*f)(A), T<A> a) {
+    T<A> r;
+    r.len = 0;
+    for (uint16_t i=0; i<a.len; i++) {
+      if (f(a[i])) {
+        r[r.len] = a[i];
+        r.len++;
+      } else {
+        break;
+      }
+    }
+    return r;
+  }
+
+  template<template<typename> class R, template<typename> class A, typename T> R<T> takeWhile(bool (*f)(T), A<T> a) {
+    R<T> r;
+    r.len = 0;
+    for (uint16_t i=0; i<a.len; i++) {
+      if (f(a[i])) {
+        r[r.len] = a[i];
+        r.len++;
+      } else {
+        break;
+      }
+    }
+    return r;
+  }
 }
 

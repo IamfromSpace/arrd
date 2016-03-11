@@ -239,3 +239,39 @@ TEST(arrdDrop, ShouldBeAbleToReturnADifferentCapacityArray) {
   EXPECT_EQ(b[2],5);
   EXPECT_EQ(b.len, 3);
 }
+
+TEST(takeWhile, ShouldTakeTheCorrectValues) {
+  arrd8_t<int16_t> a = {{3,2,1,0,-1,-2,3},7};
+  arrd8_t<int16_t> b = takeWhile(isPositive, a);
+  EXPECT_EQ(b[0], 3);
+  EXPECT_EQ(b[1], 2);
+  EXPECT_EQ(b[2], 1);
+  EXPECT_EQ(b[3], 0);
+  EXPECT_EQ(b.len, 4);
+}
+
+TEST(takeWhile, ShouldReturnAnIdenticalArrayIfAllMatch) {
+  arrd8_t<int16_t> a = {{3,2,1,0},4};
+  arrd8_t<int16_t> b = takeWhile(isPositive, a);
+  EXPECT_EQ(b[0], 3);
+  EXPECT_EQ(b[1], 2);
+  EXPECT_EQ(b[2], 1);
+  EXPECT_EQ(b[3], 0);
+  EXPECT_EQ(b.len, 4);
+}
+
+TEST(takeWhile, ShouldReturnAnEmptyArrayIfTheFirstValueDoesntMatch) {
+  arrd8_t<int16_t> a = {{-3,2,1,0},4};
+  arrd8_t<int16_t> b = takeWhile(isPositive, a);
+  EXPECT_EQ(b.len, 0);
+}
+
+TEST(takeWhile, ShouldBeAbleToReturnADifferentSizedArrd) {
+  arrd8_t<int16_t> a = {{3,2,1,0,-1,-2,3},7};
+  arrd4_t<int16_t> b = takeWhile<arrd4_t>(isPositive, a);
+  EXPECT_EQ(b[0], 3);
+  EXPECT_EQ(b[1], 2);
+  EXPECT_EQ(b[2], 1);
+  EXPECT_EQ(b[3], 0);
+  EXPECT_EQ(b.len, 4);
+}
