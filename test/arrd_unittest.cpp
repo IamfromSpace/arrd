@@ -1,30 +1,8 @@
 #include "arrd.h"
+#include "helpers.h"
 #include "gtest/gtest.h"
 
 using namespace arrd;
-
-template<typename T>
-T square(T a) {
-  return a * a;
-}
-
-template<typename T>
-T sum(T a, T b) {
-  return a + b;
-}
-
-template<typename T>
-bool isPositive(T a) {
-  return a >= 0;
-}
-
-int16_t incIf(int16_t a, bool b) {
-  if (b) {
-    return a + 1;
-  } else {
-    return a;
-  }
-}
 
 TEST(arrd, CanAccessAllMembers) {
   arrd4_t<int16_t> a = {{0, 1, 4, 9}, 4};

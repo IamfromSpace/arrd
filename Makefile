@@ -1,6 +1,6 @@
 .PHONY: test
 test:
-	g++ -pthread src/*.h test/*.cpp -Isrc/ -lgtest -o test.o && ./test.o
+	g++ -pthread test/*.cpp -Isrc/ -Itest/ -lgtest -o test.o && ./test.o
 
 .PHONY: perf
 perf:

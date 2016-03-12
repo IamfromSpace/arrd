@@ -1,3 +1,5 @@
+#ifndef ARRD_H
+#define ARRD_H
 #include <stdint.h>
 #include <algorithm>
 
@@ -226,3 +228,4 @@ namespace arrd {
   }
 }
 
+#endif
