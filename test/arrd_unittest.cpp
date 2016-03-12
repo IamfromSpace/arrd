@@ -75,6 +75,7 @@ TEST(arrdMap, ShouldMap) {
 }
 
 TEST(arrdMap, ShouldMapMultipleTypes) {
+  // TODO: This is testing the wrong thing.  Should be testing A f(B);
   arrd8_t<float> a = {{0,1,2}, 3};
   arrd8_t<float> b = map(square, a);
   EXPECT_EQ(b[0], 0);
