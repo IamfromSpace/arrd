@@ -88,6 +88,12 @@ TEST(arrdMap, ShouldMap) {
   EXPECT_EQ(b[1], 1);
   EXPECT_EQ(b[2], 4);
   EXPECT_EQ(b.len, 3);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 0);
+  EXPECT_EQ(a[1], 1);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a.len, 3);
 }
 
 TEST(arrdMap, ShouldMapMultipleTypes) {
@@ -96,6 +102,12 @@ TEST(arrdMap, ShouldMapMultipleTypes) {
   EXPECT_EQ(b[0], 0);
   EXPECT_EQ(b[1], 1);
   EXPECT_EQ(b[2], 4);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 0);
+  EXPECT_EQ(a[1], 1);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a.len, 3);
 }
 
 TEST(arrdMap, ShouldMapTwoArrds) {
@@ -106,6 +118,18 @@ TEST(arrdMap, ShouldMapTwoArrds) {
   EXPECT_EQ(c[1], 2);
   EXPECT_EQ(c[2], 4);
   EXPECT_EQ(c.len, 3);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 0);
+  EXPECT_EQ(a[1], 1);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a.len, 3);
+
+  EXPECT_EQ(b[0], 0);
+  EXPECT_EQ(b[1], 1);
+  EXPECT_EQ(b[2], 2);
+  EXPECT_EQ(b[3], 3);
+  EXPECT_EQ(b.len, 4);
 }
 
 TEST(arrdConcat, ShouldCombineTwoArrds) {
@@ -116,6 +140,14 @@ TEST(arrdConcat, ShouldCombineTwoArrds) {
   EXPECT_EQ(c[1], 8);
   EXPECT_EQ(c[2], 9);
   EXPECT_EQ(c.len, 3);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 7);
+  EXPECT_EQ(a.len, 1);
+
+  EXPECT_EQ(b[0], 8);
+  EXPECT_EQ(b[1], 9);
+  EXPECT_EQ(b.len, 2);
 }
 
 TEST(arrdConcat, ShouldCombineArrdsOfVariousSize) {
@@ -128,6 +160,16 @@ TEST(arrdConcat, ShouldCombineArrdsOfVariousSize) {
   EXPECT_EQ(c[3], 10);
   EXPECT_EQ(c[4], 11);
   EXPECT_EQ(c.len, 5);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 7);
+  EXPECT_EQ(a.len, 1);
+
+  EXPECT_EQ(b[0], 8);
+  EXPECT_EQ(b[1], 9);
+  EXPECT_EQ(b[2], 10);
+  EXPECT_EQ(b[3], 11);
+  EXPECT_EQ(b.len, 4);
 }
 
 TEST(arrdFilter, ShouldFilter) {
@@ -138,36 +180,80 @@ TEST(arrdFilter, ShouldFilter) {
   EXPECT_EQ(b[2],12);
   EXPECT_EQ(b[3],1923);
   EXPECT_EQ(b.len,4);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 1);
+  EXPECT_EQ(a[1], -1);
+  EXPECT_EQ(a[2], 0);
+  EXPECT_EQ(a[3], -17);
+  EXPECT_EQ(a[4], -5);
+  EXPECT_EQ(a[5], 12);
+  EXPECT_EQ(a[6], 1923);
+  EXPECT_EQ(a.len, 7);
 }
 
 TEST(arrdReduce, ShouldAcceptAStartingValue) {
   arrd8_t<int16_t> a = {{0,1,2,3,4,5},6};
   int16_t b = reduce(sum<int16_t>, (int16_t) 10, a);
   EXPECT_EQ(b, 25);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 0);
+  EXPECT_EQ(a[1], 1);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a[3], 3);
+  EXPECT_EQ(a[4], 4);
+  EXPECT_EQ(a[5], 5);
+  EXPECT_EQ(a.len, 6);
 }
 
 TEST(arrdReduce, ShouldAcceptAStartingValOfDifferentType) {
   arrd8_t<bool> a = {{true,false,false,true,true,true},6};
   int16_t b = reduce(incIf, (int16_t) 0, a);
   EXPECT_EQ(b, 4);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], true);
+  EXPECT_EQ(a[1], false);
+  EXPECT_EQ(a[2], false);
+  EXPECT_EQ(a[3], true);
+  EXPECT_EQ(a[4], true);
+  EXPECT_EQ(a[5], true);
+  EXPECT_EQ(a.len, 6);
 }
 
 TEST(arrdReduce, ShouldWorkWithoutAStartingValue) {
   arrd8_t<int16_t> a = {{0,1,2,3,4,5},6};
   int16_t b = reduce(sum<int16_t>, a);
   EXPECT_EQ(b, 15);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 0);
+  EXPECT_EQ(a[1], 1);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a[3], 3);
+  EXPECT_EQ(a[4], 4);
+  EXPECT_EQ(a[5], 5);
+  EXPECT_EQ(a.len, 6);
 }
 
 TEST(arrdReduce, ShouldReturnTheFirstElementWhenLengthIsOne) {
   arrd8_t<int16_t> a = {{90},1};
   int16_t b = reduce(sum<int16_t>, a);
   EXPECT_EQ(b, 90);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 90);
+  EXPECT_EQ(a.len, 1);
 }
 
 TEST(arrdReduce, ShouldReturnATypeCast0IfEmpty) {
   arrd8_t<bool> a = {{},0};
   bool b = reduce(sum<bool>, a);
   EXPECT_EQ(b, false);
+
+  //And not mutate args
+  EXPECT_EQ(a.len, 0);
 }
 
 TEST(arrdReverse, ShouldReverseAnArray) {
@@ -180,12 +266,24 @@ TEST(arrdReverse, ShouldReverseAnArray) {
   EXPECT_EQ(b[4], 1);
   EXPECT_EQ(b[5], 0);
   EXPECT_EQ(b.len, 6);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 0);
+  EXPECT_EQ(a[1], 1);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a[3], 3);
+  EXPECT_EQ(a[4], 4);
+  EXPECT_EQ(a[5], 5);
+  EXPECT_EQ(a.len, 6);
 }
 
 TEST(arrdReverse, ShouldReturnAnEmptyArrayWhenReversingAZeroLengthArray) {
   arrd8_t<int16_t> a = {{},0};
   arrd8_t<int16_t> b = reverse(a);
   EXPECT_EQ(b.len, 0);
+
+  //And not mutate args
+  EXPECT_EQ(a.len, 0);
 }
 
 TEST(arrdTake, ShouldReturnASubsetOfTheTargetArray) {
@@ -195,12 +293,30 @@ TEST(arrdTake, ShouldReturnASubsetOfTheTargetArray) {
   EXPECT_EQ(b[1],1);
   EXPECT_EQ(b[2],2);
   EXPECT_EQ(b.len, 3);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 0);
+  EXPECT_EQ(a[1], 1);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a[3], 3);
+  EXPECT_EQ(a[4], 4);
+  EXPECT_EQ(a[5], 5);
+  EXPECT_EQ(a.len, 6);
 }
 
 TEST(arrdTake, ShouldReturnAnEmptyArrayWhenTakingZero) {
   arrd8_t<int16_t> a = {{0,1,2,3,4,5},6};
   arrd8_t<int16_t> b = take(a, 0);
   EXPECT_EQ(b.len, 0);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 0);
+  EXPECT_EQ(a[1], 1);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a[3], 3);
+  EXPECT_EQ(a[4], 4);
+  EXPECT_EQ(a[5], 5);
+  EXPECT_EQ(a.len, 6);
 }
 
 TEST(arrdTake, ShouldBeAbleToReturnADifferentCapacityArray) {
@@ -210,6 +326,15 @@ TEST(arrdTake, ShouldBeAbleToReturnADifferentCapacityArray) {
   EXPECT_EQ(b[1],1);
   EXPECT_EQ(b[2],2);
   EXPECT_EQ(b.len, 3);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 0);
+  EXPECT_EQ(a[1], 1);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a[3], 3);
+  EXPECT_EQ(a[4], 4);
+  EXPECT_EQ(a[5], 5);
+  EXPECT_EQ(a.len, 6);
 }
 
 TEST(arrdDrop, ShouldReturnASubsetOfTheTargetArray) {
@@ -219,6 +344,15 @@ TEST(arrdDrop, ShouldReturnASubsetOfTheTargetArray) {
   EXPECT_EQ(b[1],4);
   EXPECT_EQ(b[2],5);
   EXPECT_EQ(b.len, 3);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 0);
+  EXPECT_EQ(a[1], 1);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a[3], 3);
+  EXPECT_EQ(a[4], 4);
+  EXPECT_EQ(a[5], 5);
+  EXPECT_EQ(a.len, 6);
 }
 
 TEST(arrdDrop, ShouldReturnAnIdenticalArrayWhenDroppingZero) {
@@ -229,6 +363,13 @@ TEST(arrdDrop, ShouldReturnAnIdenticalArrayWhenDroppingZero) {
   EXPECT_EQ(b[2],2);
   EXPECT_EQ(b[3],3);
   EXPECT_EQ(b.len, 4);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 0);
+  EXPECT_EQ(a[1], 1);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a[3], 3);
+  EXPECT_EQ(a.len, 4);
 }
 
 TEST(arrdDrop, ShouldBeAbleToReturnADifferentCapacityArray) {
@@ -238,6 +379,15 @@ TEST(arrdDrop, ShouldBeAbleToReturnADifferentCapacityArray) {
   EXPECT_EQ(b[1],4);
   EXPECT_EQ(b[2],5);
   EXPECT_EQ(b.len, 3);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 0);
+  EXPECT_EQ(a[1], 1);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a[3], 3);
+  EXPECT_EQ(a[4], 4);
+  EXPECT_EQ(a[5], 5);
+  EXPECT_EQ(a.len, 6);
 }
 
 TEST(takeWhile, ShouldTakeTheCorrectValues) {
@@ -248,6 +398,16 @@ TEST(takeWhile, ShouldTakeTheCorrectValues) {
   EXPECT_EQ(b[2], 1);
   EXPECT_EQ(b[3], 0);
   EXPECT_EQ(b.len, 4);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 3);
+  EXPECT_EQ(a[1], 2);
+  EXPECT_EQ(a[2], 1);
+  EXPECT_EQ(a[3], 0);
+  EXPECT_EQ(a[4], -1);
+  EXPECT_EQ(a[5], -2);
+  EXPECT_EQ(a[6], 3);
+  EXPECT_EQ(a.len, 7);
 }
 
 TEST(takeWhile, ShouldReturnAnIdenticalArrayIfAllMatch) {
@@ -258,12 +418,26 @@ TEST(takeWhile, ShouldReturnAnIdenticalArrayIfAllMatch) {
   EXPECT_EQ(b[2], 1);
   EXPECT_EQ(b[3], 0);
   EXPECT_EQ(b.len, 4);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 3);
+  EXPECT_EQ(a[1], 2);
+  EXPECT_EQ(a[2], 1);
+  EXPECT_EQ(a[3], 0);
+  EXPECT_EQ(a.len, 4);
 }
 
 TEST(takeWhile, ShouldReturnAnEmptyArrayIfTheFirstValueDoesntMatch) {
   arrd8_t<int16_t> a = {{-3,2,1,0},4};
   arrd8_t<int16_t> b = takeWhile(isPositive, a);
   EXPECT_EQ(b.len, 0);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], -3);
+  EXPECT_EQ(a[1], 2);
+  EXPECT_EQ(a[2], 1);
+  EXPECT_EQ(a[3], 0);
+  EXPECT_EQ(a.len, 4);
 }
 
 TEST(takeWhile, ShouldBeAbleToReturnADifferentSizedArrd) {
@@ -274,6 +448,16 @@ TEST(takeWhile, ShouldBeAbleToReturnADifferentSizedArrd) {
   EXPECT_EQ(b[2], 1);
   EXPECT_EQ(b[3], 0);
   EXPECT_EQ(b.len, 4);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 3);
+  EXPECT_EQ(a[1], 2);
+  EXPECT_EQ(a[2], 1);
+  EXPECT_EQ(a[3], 0);
+  EXPECT_EQ(a[4], -1);
+  EXPECT_EQ(a[5], -2);
+  EXPECT_EQ(a[6], 3);
+  EXPECT_EQ(a.len, 7);
 }
 
 TEST(dropWhile, ShouldDropTheCorrectValues) {
@@ -283,22 +467,46 @@ TEST(dropWhile, ShouldDropTheCorrectValues) {
   EXPECT_EQ(b[1], -2);
   EXPECT_EQ(b[2], 3);
   EXPECT_EQ(b.len, 3);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 3);
+  EXPECT_EQ(a[1], 2);
+  EXPECT_EQ(a[2], 1);
+  EXPECT_EQ(a[3], 0);
+  EXPECT_EQ(a[4], -1);
+  EXPECT_EQ(a[5], -2);
+  EXPECT_EQ(a[6], 3);
+  EXPECT_EQ(a.len, 7);
 }
 
 TEST(dropWhile, ShouldReturnAnEmptyArrayIfAllMatch) {
   arrd8_t<int16_t> a = {{4,3,2,1},4};
   arrd8_t<int16_t> b = dropWhile(isPositive, a);
   EXPECT_EQ(b.len, 0);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 4);
+  EXPECT_EQ(a[1], 3);
+  EXPECT_EQ(a[2], 2);
+  EXPECT_EQ(a[3], 1);
+  EXPECT_EQ(a.len, 4);
 }
 
 TEST(dropWhile, ShouldReturnTheSameArrayIfAllValuesDoNotMatch) {
-  arrd8_t<int16_t> a = {{-3,-2,-1,-0},4};
+  arrd8_t<int16_t> a = {{-3,-2,-1,0},4};
   arrd8_t<int16_t> b = dropWhile(isPositive, a);
   EXPECT_EQ(b[0], -3);
   EXPECT_EQ(b[1], -2);
   EXPECT_EQ(b[2], -1);
   EXPECT_EQ(b[3], -0);
   EXPECT_EQ(b.len, 4);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], -3);
+  EXPECT_EQ(a[1], -2);
+  EXPECT_EQ(a[2], -1);
+  EXPECT_EQ(a[3], 0);
+  EXPECT_EQ(a.len, 4);
 }
 
 TEST(dropWhile, ShouldBeAbleToReturnADifferentSizeedArrd) {
@@ -308,4 +516,14 @@ TEST(dropWhile, ShouldBeAbleToReturnADifferentSizeedArrd) {
   EXPECT_EQ(b[1], -2);
   EXPECT_EQ(b[2], 3);
   EXPECT_EQ(b.len, 3);
+
+  //And not mutate args
+  EXPECT_EQ(a[0], 3);
+  EXPECT_EQ(a[1], 2);
+  EXPECT_EQ(a[2], 1);
+  EXPECT_EQ(a[3], 0);
+  EXPECT_EQ(a[4], -1);
+  EXPECT_EQ(a[5], -2);
+  EXPECT_EQ(a[6], 3);
+  EXPECT_EQ(a.len, 7);
 }
