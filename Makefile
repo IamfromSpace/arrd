@@ -1,6 +1,6 @@
 .PHONY: test
 test:
-	g++ -pthread test/*.cpp -Isrc/ -Itest/ -lgtest -o test.o && ./test.o
+	g++ -pthread test/*.cpp -Iinclude/ -Itest/ -lgtest -o test.o && ./test.o
 
 .PHONY: watch
 watch:
@@ -8,4 +8,4 @@ watch:
 
 .PHONY: perf
 perf:
-	g++ perf/*.cpp -L../hayai/src/ -I../hayai/src/ -Isrc/ -lhayai_main -o perf.o && ./perf.o
+	g++ perf/*.cpp -L../hayai/src/ -I../hayai/src/ -Iinclude/ -lhayai_main -o perf.o && ./perf.o
