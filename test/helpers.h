@@ -25,4 +25,22 @@ T incIf(T a, bool b) {
     return a;
   }
 }
+
+template<typename A>
+int16_t sign(A a) {
+  if (isPositive(a)) {
+    return 1;
+  } else {
+    return -1;
+  }
+}
+
+template<typename R, typename A, typename B>
+R divAby10ifBTruthy(A a, B b) {
+  if((bool) b) {
+    return ((R) a) / 10;
+  } else {
+    return (R) a;
+  }
+}
 #endif
