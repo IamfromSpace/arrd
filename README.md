@@ -54,5 +54,8 @@ Tests are run using [Google Test](https://github.com/google/googletest).  This l
 
 Once that is complete, you can run `make test` from this root directory to run all tests.
 
+###Running Tests Automatically
+If you have nodejs installed (I won't provide instruction here) and nodemon installed (`npm install nodemon -g`), you can have tests run each time you make changes.  Simply run `make watch` in a terminal window, and tests will execute each time a file is saved with changes.
+
 ###Running Perf
 This library has some performance tests to guide design decisions.  To run these, you'll need [hayai](https://github.com/nickbruun/hayai).  Currently this assumes you have the source code in a peer folder to arrd.  With that project built (you can do this via cmake, see hayai's README), you can run the performance tests via `make perf`.
