@@ -4,7 +4,7 @@ test:
 
 .PHONY: watch
 watch:
-	nodemon -e cpp,hpp,h test --exec "make"
+	nodemon -e cpp,hpp,h test --exec "make test || exit 1"
 
 .PHONY: perf
 perf:
