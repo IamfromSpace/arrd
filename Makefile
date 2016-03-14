@@ -1,6 +1,6 @@
 .PHONY: test
 test:
-	g++ -pthread test/*.cpp -Iinclude/ -Itest/ -lgtest -o test.o && ./test.o
+	g++ -g -pthread test/*.cpp -Iinclude/ -Itest/ -lgtest -o test.o && valgrind --leak-check=yes ./test.o
 
 .PHONY: watch
 watch:

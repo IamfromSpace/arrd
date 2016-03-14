@@ -52,6 +52,8 @@ Simply place the `arrd.h` file into your libraries and add `#include "arrd.h"` t
 ###Running Tests
 Tests are run using [Google Test](https://github.com/google/googletest).  This library needs to be downloaded and built, and then added to your default include/lib locations.  Please check their readme for details.
 
+You will also need to have [valgrind](http://valgrind.org/) installed, which checks for memory leaks on every test run.  If you're on Debian/Ubuntu this can be done via `sudo apt-get install valgrind`.
+
 Once that is complete, you can run `make test` from this root directory to run all tests.
 
 ###Running Tests Automatically
