@@ -1,7 +1,6 @@
 #ifndef ARRD_H
 #define ARRD_H
 #include <stdint.h>
-#include <algorithm>
 
 template<typename T>
 class arrd2_t {
@@ -46,7 +45,7 @@ class arrd32_t {
 namespace arrd {
   template<template<typename> class T, typename A, typename B, typename C> T<C> map(C (*f)(A,B), T<A> a, T<B> b) {
     T<C> r;
-    r.len = std::min(a.len, b.len);
+    r.len = a.len < b.len ? a.len : b.len;
     for (uint16_t i=0; i<r.len; i++) {
       r[i] = f(a[i], b[i]);
     }
