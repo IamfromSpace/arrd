@@ -47,7 +47,7 @@ arrd8_t<SomeOtherCrazyType> c = arrd::map(someCrazyFunction, b);
 ```
 
 ###Installing
-Simply place the `arrd.h` file into your libraries and add `#include "arrd.h"` to your sketch/project.  To use functions directly instead of namespacing, just add the line `using namespace arrd;`.
+On a Unix based system, to create the library zip file with just run the command `make` from the root directory.  Now from the Arduino IDE select `Sketch > Include Library > Add .ZIP Library...`.  From the popup window, find this directory and select `arrd.zip`.  Now you can include the library by adding `#include "arrd.h"` to your sketch or by selecting `Sketch > Include Library > arrd`.  To use functions directly instead of namespacing, just add the line `using namespace arrd;`.
 
 ###Running Tests
 Tests are run using [Google Test](https://github.com/google/googletest).  This library needs to be downloaded and built, and then added to your default include/lib locations.  Please check their readme for details.
