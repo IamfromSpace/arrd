@@ -33,6 +33,16 @@ class arrd8_t {
 };
 
 template<typename T>
+class arrd16_t {
+  public:
+    T arr[16];
+    uint8_t len;
+    T& operator[] (const int i) {
+      return arr[i];
+    }
+};
+
+template<typename T>
 class arrd32_t {
   public:
     T arr[32];
